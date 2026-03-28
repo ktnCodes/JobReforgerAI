@@ -1,0 +1,59 @@
+Senior Software Engineer (Embedded Systems/C++)
+Company: Emerson (NI / Test & Measurement Business Unit)
+Location: Austin, TX, United States (Hybrid)
+Job ID: 26002358
+Posted: 02/24/2026
+
+Job Description
+
+If you are a Software Development professional looking grow your career, Emerson has an outstanding opportunity for you! NI is now the Test & Measurement (T&M) Business Unit of Emerson, and we are seeking an experienced Software Engineer for embedded and driver software products! As a member of a product team, developers collaborate frequently with product architects, product managers, and other software engineers to implement designs in an agile/scrum software development environment.
+
+In This Role, Your Responsibilities Will Be:
+
+- Deliver product features by participating in research, design, development, and documentation efforts.
+- Collaborate with team members and project leaders on design discussions and code architecture.
+- Specify, design, and implement new product features.
+- Troubleshoot product defects and work with team to resolve successfully.
+- Develop tests to ensure high code quality and catch future regressions.
+- Peer review code changes submitted by other members of the team.
+- Participate in team activities including standups, backlog reviews, retrospectives, and brainstorming sessions.
+- Explore and apply new technologies to continually improve our infrastructure and processes.
+
+Who You Are:
+
+You are passionate about technology and are dedicated to delivering a high-quality product to enable customer success. You research initiatives and try new approaches. You stay aligned with your goals and stay productive. You make connections and build relationships with your colleagues, focusing on creating and effective collaborative style. You take time to ask questions and define the problem and make learning a priority and a goal. You dig for root causes of a problem and look for patterns. You try different solutions for problems and learn from the results.
+
+For This Role, You Will Need:
+
+- Bachelor's Degree in Computer Science or Engineering (or similar)
+- 5+ years of software development experience
+- Object oriented programming and proficiency in C++
+- Understanding of good software design and computer architecture principles including:
+  - Operating system components and design
+  - Familiarity with embedded, kernel or low level hardware/software integration
+  - Data structures
+  - Experience with Agile methodology.
+  - Experience with testing frameworks.
+- Demonstrated ability to:
+  - Problem-solve effectively - diagnose technical issues and propose reasonable solutions; enjoy problem solving
+  - Take initiative, be a self-starter, and work independently
+  - Persistently drive tasks and projects to successful completion
+  - Take ownership of goals and project schedules
+  - Listen attentively and grasp fast-paced technical conversations
+  - Quickly learn applicable technology, systems, and products
+  - Passion for learning about and working with computer-industry technologies
+  - Strong work ethic and drive to succeed
+- Authorized to work in the United States without sponsorship now and in the future
+
+Preferred Qualifications That Set You Apart:
+
+- Work productively in a team development environment
+- Innovative, out of the box thinker.
+- Familiarity with CI/CD pipelines and DevOps practices.
+- Experience with Azure DevOps
+- Experience programming in LabVIEW
+- Familiarity with NI products
+
+Our Culture & Commitment to You:
+
+At Emerson, we prioritize a workplace where every employee is valued, respected, and empowered to grow. We foster an environment that encourages innovation, collaboration, and diverse perspectives—because we know that great ideas come from great teams. Our commitment to ongoing career development and growing an inclusive culture ensures you have the support to thrive. Whether through mentorship, training, or leadership opportunities, we invest in your success so you can make a lasting impact. We believe diverse teams, working together are key to driving growth and delivering business results.

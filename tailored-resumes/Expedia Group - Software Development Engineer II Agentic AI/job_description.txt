@@ -1,0 +1,41 @@
+Software Development Engineer II: Agentic AI
+Expedia Group
+Austin Domain 11 - HomeAway
+Full time
+R-104245
+
+Expedia Group brands power global travel for everyone, everywhere. We design cutting-edge tech to make travel smoother and more memorable, and we create groundbreaking solutions for our partners. Our diverse, vibrant, and welcoming community is essential in driving our success.
+
+Introduction to the team:
+Our Technology Team partners with teams across Expedia Group to create innovative products, services, and tools to deliver high-quality experiences for travelers, partners, and our employees. A singular technology platform powered by data and machine learning provides secure, differentiated, and personalized experiences that drive loyalty and traveler satisfaction.
+
+The Agentic AI team which sits within our Product and Technology division. The Agentic AI team designs and builds AI-powered agents that can understand traveler and partner needs, take actions on their behalf across our platform, and connect emerging agentic AI experiences into Expedia Group's ecosystem.
+
+As a Software Development Engineer II, you will contribute to designing, building, and operating reliable, scalable software services that bring these intelligent agent capabilities into production experiences for our travelers and partners.
+
+Role Summary:
+An established performer who consistently applies software engineering principles to business contexts, leads small, well-defined projects and continues as a supporting player on complex projects, and actively identifies inefficiencies in existing systems. The Agentic AI team is looking for a strong full stack engineer who has either had direct experience building with AI in industry or shown immense curiosity to learn and build with AI.
+
+In this role, you will:
+- Design, develop, test, and deploy robust, secure, and scalable software services and features, including system design (low-level design), API design, and data modeling, to support key business capabilities across multiple domains.
+- Collaborate with teammates, product partners, and technical leaders to refine requirements, break down complex problems, and deliver high-quality solutions that are maintainable and observable in production.
+- Own and enhance services or components throughout the full software development lifecycle, including code quality, automated testing, documentation, and operational readiness.
+- Troubleshoot, debug, and resolve production and pre-production issues by using logs, metrics, alerts, and data analysis to drive root cause identification and sustainable fixes.
+- Safely integrate and operate AI/ML-enabled solutions that improve outcomes, including familiarity with AI-driven systems, tools, or workflows and applying AI/ML concepts to real world products.
+- Contribute to continuous improvement of engineering practices, including code reviews, refactoring, performance optimization, and leveraging common platforms and patterns to build fungible solutions across multiple products and services.
+
+Minimum Qualifications:
+- Bachelor's degree in Computer Science, Engineering, or a related technical field, or equivalent practical experience.
+- Professional software development experience (typically 2-5 years) building, shipping, and operating production services or applications.
+- Experience owning one or more production services or components, including responsibility for quality, reliability, and operational support within a team or domain.
+- Proficiency in at least one modern programming language and associated frameworks, with hands-on experience in system design (LLD), API design, and data modeling for service-oriented architectures.
+- Working knowledge of software engineering fundamentals such as data structures, algorithms, object-oriented or functional design, testing strategies, and version control.
+
+Preferred Qualifications:
+- Experience designing and evolving service and API contracts, schemas, and data models for high-traffic or highly available distributed systems.
+- Demonstrated track record improving reliability, performance, security, or cost efficiency of production systems through observability, automation, and operational best practices.
+- Background integrating or consuming AI/ML-enabled capabilities in applications or services, and safely operating these solutions with appropriate monitoring and safeguards.
+- Familiarity with AI-driven systems, tools, or workflows and applying AI/ML concepts to real world products, including using AI-assisted development or analysis tools to increase productivity and quality.
+- Experience working across multiple services or domains, collaborating with cross-functional partners, and contributing to shared architectures, patterns, or platforms within an engineering organization.
+
+The total cash range for this position in Austin is $119,000.00 to $166,500.00. Employees in this role have the potential to increase their pay up to $190,500.00, which is the top of the range, based on ongoing, demonstrated, and sustained performance in the role.
