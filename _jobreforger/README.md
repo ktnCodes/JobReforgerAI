@@ -2,58 +2,58 @@
 
 > Forge tailored resumes with AI-powered ATS + HR dual scoring — fully local, no subscriptions, no API keys required.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Plugin-blueviolet)](https://docs.anthropic.com/en/docs/claude-code)
 
 ---
 
-## What It Does
+## What Is JobReforgerAI?
 
-JobReforgerAI takes your master resume and a job description, then:
+JobReforgerAI is a local-first AI resume toolkit that takes your master resume and a job description, then:
 
-1. **Pre-screens the fit** — job fit scorer checks for knockout disqualifiers before investing time tailoring
-2. **Tailors your resume** — rewrites bullets with JD terminology, updates core competencies with matching keywords
-3. **Scores with two independent engines** — ATS keyword/semantic scoring + HR recruiter simulation
-4. **Iterates automatically** — revises and re-scores until targets are hit (ATS 75-85%, HR 70%+)
-5. **Generates production-ready DOCX** — ATS/Workday-compliant formatting, no tables or graphics
-6. **Writes a cover letter** — tailored to the role and company
-7. **Tracks every application** — auto-updates an Excel spreadsheet with scores and file links
-8. **Finds matching jobs** — searches Indeed, LinkedIn, ZipRecruiter, Glassdoor, and Remotive, ranked by fit with your resume
+1. **Tailors your resume** — rewrites bullets with JD terminology, updates core competencies with matching keywords
+2. **Scores with two independent engines** — ATS keyword/semantic scoring + HR recruiter simulation
+3. **Iterates automatically** — revises and re-scores until targets are hit (ATS 75-85%, HR 70%+)
+4. **Generates production-ready DOCX** — ATS/Workday-compliant formatting, no tables or graphics
+5. **Writes a cover letter** — tailored to the role and company
+6. **Tracks every application** — auto-updates an Excel spreadsheet with scores and file links
+7. **Finds matching jobs** — searches Indeed, LinkedIn, ZipRecruiter, Glassdoor, and Remotive, ranked by fit with your resume
 
-Everything runs **locally on your machine**. No cloud, no subscriptions, no API keys required for scoring or job search.
-
-> **Note:** The repo includes a legacy `resume_builder.py` CLI that requires an Anthropic API key. This has been **superseded by Claude Code slash commands** (`/resume`, `/tailor-resume`, `/cover-letter`) which need no API key — they run through your Claude Code subscription. The legacy CLI is kept for historical reference only.
+Everything runs **locally on your machine**. No cloud services, no subscriptions, no API keys required for scoring or job search.
 
 ---
 
-## How It Compares
+## Who Is This For?
+
+- **Job seekers** who want to tailor resumes fast without paying for Jobscan, Rezi, or Teal subscriptions
+- **Career changers** who need to reframe existing experience for a new field
+- **Power applicants** sending out many applications and want consistent quality with tracked scores
+- **Developers and tinkerers** who prefer open-source tools they can inspect and modify
+- **Claude Code users** who want a real-world example of slash commands, MCP tools, and multi-agent orchestration
 
 | Feature | Jobscan | Rezi | Teal | **JobReforgerAI** |
 |---------|---------|------|------|--------------------|
-| ATS keyword scoring | ✅ | ✅ | ✅ | ✅ |
-| HR / recruiter simulation | ❌ | ❌ | ❌ | ✅ |
-| Job fit pre-screen | ❌ | ❌ | ❌ | ✅ |
-| Discover matching jobs (no API key) | ❌ | ❌ | ❌ | ✅ |
-| Score jobs against your resume | ❌ | ❌ | ❌ | ✅ |
-| Auto-tailor resume to JD | ✅ | ✅ | ❌ | ✅ |
-| ATS-compliant DOCX output | ❌ | ✅ | ❌ | ✅ |
-| Cover letter generation | ❌ | ✅ | ❌ | ✅ |
-| Application tracker (Excel) | ❌ | ❌ | ✅ | ✅ |
-| 100% local — no subscriptions | ❌ | ❌ | ❌ | ✅ |
-| Works in Claude Code / claude.ai | ❌ | ❌ | ❌ | ✅ |
-| Open source | ❌ | ❌ | ❌ | ✅ |
+| ATS keyword scoring | Yes | Yes | Yes | Yes |
+| HR / recruiter simulation | No | No | No | Yes |
+| Discover matching jobs (no API key) | No | No | No | Yes |
+| Score jobs against your resume | No | No | No | Yes |
+| Auto-tailor resume to JD | Yes | Yes | No | Yes |
+| ATS-compliant DOCX output | No | Yes | No | Yes |
+| Cover letter generation | No | Yes | No | Yes |
+| Application tracker (Excel) | No | No | Yes | Yes |
+| 100% local — no subscriptions | No | No | No | Yes |
+| Open source | No | No | No | Yes |
 
 ---
 
-## Quick Start
+## How to Use
 
 ### Prerequisites
 
 - Python 3.10+
 - [Claude Code](https://docs.anthropic.com/en/docs/claude-code)
 
-### Setup
+### Installation
 
 ```bash
 git clone https://github.com/ktnCodes/JobReforgerAI.git
@@ -68,15 +68,30 @@ cp _jobreforger/.env.example _jobreforger/.env
 cp _jobreforger/config.example.json _jobreforger/config.json
 ```
 
-Edit `_jobreforger/config.json` with your name, email, phone, and LinkedIn. Set `master_resume_path` to your resume file (e.g., `../base-resume/YOUR_MASTER_RESUME.md`).
+### Configuration
 
-Edit `.env` — the API key is only needed if you plan to use the legacy `resume_builder.py` CLI. The modern slash commands work through Claude Code's subscription with no API key:
+Edit `_jobreforger/config.json` with your details:
+
+```json
+{
+  "master_resume_path": "../base-resume/YOUR_MASTER_RESUME.md",
+  "output_base_dir": "../tailored-resumes",
+  "user_name": "Your Name",
+  "user_email": "you@email.com",
+  "user_phone": "555-555-5555",
+  "linkedin_url": "linkedin.com/in/yourprofile"
+}
+```
+
+Place your master resume in the `base-resume/` folder. Supported formats: `.md`, `.docx`, `.pdf`, `.txt`.
+
+Edit `_jobreforger/.env` if you want to use the legacy CLI (optional — the slash commands don't need an API key):
 
 ```bash
 ANTHROPIC_API_KEY=sk-ant-...   # Optional — only for legacy resume_builder.py CLI
 ```
 
-### Configure the MCP Server
+### MCP Server Setup
 
 Create a `.mcp.json` file in the project root (excluded from git — contains your local path):
 
@@ -92,22 +107,25 @@ Create a `.mcp.json` file in the project root (excluded from git — contains yo
 }
 ```
 
-### Run it
+### Basic Usage
 
 ```
-/setup
-/resume [paste a job description]
+/setup                              # One-time guided setup
+/resume [paste a job description]   # Full package: resume + cover letter + DOCX + tracker
 ```
 
-Or find jobs first:
+Or find jobs first, then tailor:
 
 ```
 /find-jobs Software Engineer Austin TX
+/resume [paste a JD from the results]
 ```
 
 ---
 
 ## Slash Commands
+
+All commands run from the project root in Claude Code.
 
 | Command | What It Does |
 |---------|-------------|
@@ -116,28 +134,33 @@ Or find jobs first:
 | `/tailor-resume [JD]` | Resume only (no cover letter) |
 | `/cover-letter [JD]` | Cover letter only |
 | `/find-jobs [title] [location]` | Search live job boards, score each result against your resume |
-| `/job-fit [JD]` | Quick GO/NO-GO fit check before committing to tailoring |
 | `/batch-resume` | Process multiple JDs in parallel |
-| `/writing-coach [file]` | Audit and improve resume bullets using 14 writing rules |
+| `/writing-coach [file]` | Audit and improve resume bullets using 10 writing rules |
 
 ---
 
-## MCP Tools
+## Workflow
 
-The MCP server (`mcp_scorer.py`) runs locally via FastMCP and exposes these tools to Claude:
+```
+1. /setup                    One-time setup (install deps, create config)
+2. Create master resume       YOUR_MASTER_RESUME.md (or .docx / .pdf)
+3. /find-jobs [title] [loc]  Optional — discover and score matching jobs
+4. /resume [JD]              Paste a JD — get a full application package
+5. /writing-coach            Optional — audit and improve writing quality
+```
 
-| Tool | What It Does |
-|------|-------------|
-| `score_resume` | Full ATS + HR analysis in one call (recommended) |
-| `score_ats` | ATS keyword + semantic scoring (8 components) |
-| `score_hr` | HR recruiter simulation (6 factors + F-pattern visual) |
-| `explain_score` | Top missing keywords + improvement suggestions |
-| `extract_text` | Read text from DOCX, PDF, MD, or TXT files |
-| `discover_jobs` | Search job boards and score each job against your resume |
+Each `/resume` run executes in parallel phases:
+
+- **Phase 1:** Research (reads master resume, finds best prior match, sets up output folder)
+- **Phase 2:** Background base scoring + resume writing (non-blocking)
+- **Phase 3:** Parallel tailored scoring + cover letter generation
+- **Phase 4:** Auto-iteration if scores < target (max 2 rounds)
+- **Phase 5:** Parallel DOCX creation + tracker update
+- **Phase 6:** Cleanup + final score report
 
 ---
 
-## Dual Scoring System
+## Scoring System
 
 ### ATS Scorer — 8 Weighted Components
 
@@ -155,8 +178,6 @@ Simulates how Applicant Tracking Systems filter resumes before a human sees them
 | Skill Recency | 5% | Exponential decay — recent experience weighted higher |
 
 **Bonus checks:** Hidden text detection, readability analysis (Flesch-Kincaid Grade 10-12 optimal), format risk flags.
-
-**Score ratings:**
 
 | Score | Rating |
 |-------|--------|
@@ -177,11 +198,9 @@ Simulates how a human recruiter evaluates a resume in a 7-second scan.
 | Career Trajectory | 20% | Title progression via regression slope |
 | Impact Signals | 20% | Metrics density + Bloom's Taxonomy verb power |
 | Competitive Edge | 10% | Company/university prestige signals |
-| F-Pattern Visual | ±5pts | Eye-tracking compliance (golden triangle, left-rail) |
+| F-Pattern Visual | +/-5pts | Eye-tracking compliance (golden triangle, left-rail) |
 
 **Risk penalties:** Job hopping (-8 to -15 pts), unexplained gaps (-5 to -15 pts), recent instability.
-
-**Recommendations:**
 
 | Score | Recommendation |
 |-------|---------------|
@@ -216,57 +235,18 @@ The `/find-jobs` command and `discover_jobs` MCP tool search live job boards ran
 
 ---
 
-## Workflow
+## MCP Tools
 
-```
-1. /setup                    One-time setup (install deps, create config)
-2. Create master resume       YOUR_MASTER_RESUME.md (or .docx / .pdf)
-3. /find-jobs [title] [loc]  Optional — discover and score matching jobs
-4. /job-fit [JD]             Optional — quick GO/NO-GO before tailoring
-5. /resume [JD]              Paste a JD — get a full application package
-6. /writing-coach            Optional — audit and improve writing quality
-```
+The MCP server (`mcp_scorer.py`) runs locally via FastMCP and exposes these tools to Claude:
 
-Each `/resume` run executes in parallel phases:
-- **Phase 1:** Research (reads master resume, finds best prior match, sets up output folder)
-- **Phase 2:** Background base scoring + resume writing (non-blocking)
-- **Phase 3:** Parallel tailored scoring + cover letter generation
-- **Phase 4:** Auto-iteration if scores < target (max 2 rounds)
-- **Phase 5:** Parallel DOCX creation + tracker update
-- **Phase 6:** Cleanup + final score report
-
----
-
-## Your Master Resume
-
-Supported formats: `.md`, `.docx`, `.pdf`, `.txt`. Recommended structure:
-
-```
-FULL NAME
-City, State | Phone | Email | LinkedIn
-
-PROFESSIONAL SUMMARY
-[3-4 lines with core expertise]
-
-PROFESSIONAL EXPERIENCE
-
-JOB TITLE | COMPANY NAME | City, State
-Month Year – Month Year
-
-• Achievement with quantified impact
-• Another achievement with metrics
-
-EDUCATION
-
-Degree Name | University | Graduated Month Year
-
-TECHNICAL SKILLS
-
-Languages: ...
-Tools: ...
-```
-
-Set `master_resume_path` in `config.json` to point to this file.
+| Tool | What It Does |
+|------|-------------|
+| `score_resume` | Full ATS + HR analysis in one call (recommended) |
+| `score_ats` | ATS keyword + semantic scoring (8 components) |
+| `score_hr` | HR recruiter simulation (6 factors + F-pattern visual) |
+| `explain_score` | Top missing keywords + improvement suggestions |
+| `extract_text` | Read text from DOCX, PDF, MD, or TXT files |
+| `discover_jobs` | Search job boards and score each job against your resume |
 
 ---
 
@@ -288,6 +268,39 @@ Each keyword appears **1-2 times max** across the entire resume. Authentic conte
 
 ---
 
+## Master Resume Format
+
+Recommended structure for your master resume:
+
+```
+FULL NAME
+City, State | Phone | Email | LinkedIn
+
+PROFESSIONAL SUMMARY
+[3-4 lines with core expertise]
+
+PROFESSIONAL EXPERIENCE
+
+JOB TITLE | COMPANY NAME | City, State
+Month Year - Month Year
+
+* Achievement with quantified impact
+* Another achievement with metrics
+
+EDUCATION
+
+Degree Name | University | Graduated Month Year
+
+TECHNICAL SKILLS
+
+Languages: ...
+Tools: ...
+```
+
+Set `master_resume_path` in `config.json` to point to this file.
+
+---
+
 ## Project Structure
 
 ```
@@ -299,7 +312,7 @@ JobReforgerAI/
 │   ├── find-jobs.md                # Job discovery
 │   ├── batch-resume.md             # Batch processing
 │   ├── setup.md                    # One-time setup
-│   └── writing-coach.md            # Writing enhancement (14 rules)
+│   └── writing-coach.md            # Writing enhancement (10 rules)
 ├── base-resume/                    # Your master resume (gitignored)
 ├── tailored-resumes/               # Generated tailored resumes + JDs (gitignored)
 ├── cover-letters/                  # Generated cover letters (gitignored)
