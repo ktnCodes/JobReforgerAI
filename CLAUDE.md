@@ -8,7 +8,7 @@ JobReforgerAI/
 ├── base-resume/            # Your master resume (personal, gitignored)
 ├── tailored-resumes/       # Generated tailored resumes + JDs (personal, gitignored)
 ├── cover-letters/          # Generated cover letters (personal, gitignored)
-├── job-trackcsv/           # Job application tracker (personal, gitignored)
+├── job-tracker/            # Job application tracker (personal, gitignored)
 └── .claude/commands/       # Slash commands (run from this root directory)
 ```
 

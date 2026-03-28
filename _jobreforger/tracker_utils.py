@@ -19,7 +19,7 @@ except ImportError:
 
 
 # Default tracker path (relative to project root, one level up from _jobreforger/)
-TRACKER_PATH = Path(__file__).parent.parent / "job-trackcsv" / "Job_Application_Tracker.xlsx"
+TRACKER_PATH = Path(__file__).parent.parent / "job-tracker" / "Job_Application_Tracker.xlsx"
 APPLICATIONS_DIR = Path(__file__).parent.parent / "tailored-resumes"
 
 

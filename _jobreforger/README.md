@@ -303,7 +303,7 @@ JobReforgerAI/
 ├── base-resume/                    # Your master resume (gitignored)
 ├── tailored-resumes/               # Generated tailored resumes + JDs (gitignored)
 ├── cover-letters/                  # Generated cover letters (gitignored)
-├── job-trackcsv/                   # Job application tracker (gitignored)
+├── job-tracker/                    # Job application tracker (gitignored)
 ├── CLAUDE.md                       # Root workspace context
 ├── _jobreforger/                  # Tool source code
 │   ├── data/                       # Scoring reference databases

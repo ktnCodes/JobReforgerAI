@@ -6,12 +6,14 @@
 # ========================
 # Personal data (personal branch only)
 # ========================
-base-resume/
-tailored-resumes/
+base-resume/*
+!base-resume/.gitkeep
+tailored-resumes/*
+!tailored-resumes/.gitkeep
 cover-letters/*.docx
 cover-letters/*.pdf
-job-trackcsv/
-CONTEXT.md
+job-tracker/*
+!job-tracker/.gitkeep
 _jobreforger-history.bundle
 
 # ========================
