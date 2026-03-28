@@ -12,60 +12,60 @@ cover-letters/*.docx
 cover-letters/*.pdf
 job-trackcsv/
 CONTEXT.md
-resumebuilder-history.bundle
+_jobreforger-history.bundle
 
 # ========================
-# Resumebuilder sensitive files
+# Sensitive files
 # ========================
-resumebuilder/.env
-resumebuilder/config.json
-resumebuilder/*MASTER*RESUME*
-resumebuilder/.mcp.json
-resumebuilder/applications/
-resumebuilder/embed_cache/
-resumebuilder/batch_jds/
-resumebuilder/score_history.json
-resumebuilder/__pycache__/
-resumebuilder/.mypy_cache/
-resumebuilder/.pytest_cache/
-resumebuilder/.ruff_cache/
-resumebuilder/tests/
-resumebuilder/.claude/memory/
-resumebuilder/.claude/settings.local.json
-resumebuilder/.claude-plugin/
+_jobreforger/.env
+_jobreforger/config.json
+_jobreforger/*MASTER*RESUME*
+_jobreforger/.mcp.json
+_jobreforger/applications/
+_jobreforger/embed_cache/
+_jobreforger/batch_jds/
+_jobreforger/score_history.json
+_jobreforger/__pycache__/
+_jobreforger/.mypy_cache/
+_jobreforger/.pytest_cache/
+_jobreforger/.ruff_cache/
+_jobreforger/tests/
+_jobreforger/.claude/memory/
+_jobreforger/.claude/settings.local.json
+_jobreforger/.claude-plugin/
 
 # ========================
-# Resumebuilder internal ignores
+# Internal ignores
 # ========================
-resumebuilder/~$*.docx
-resumebuilder/*.log
-resumebuilder/.temp_data.json
-resumebuilder/_temp_data.json
-resumebuilder/test.json
-resumebuilder/test_resume.docx
-resumebuilder/create_docs.py
-resumebuilder/generate_docs_*.py
-resumebuilder/generate_kymera_docs.py
-resumebuilder/.gemini/
-resumebuilder/.playwright-mcp/
-resumebuilder/Deepresearch.md
-resumebuilder/DEEP_RESEARCH_PROMPT.md
-resumebuilder/MARKETING_PLAN.md
-resumebuilder/SAAS_PLAN.md
-resumebuilder/IMPLEMENTATION_PLAN.md
-resumebuilder/ATS & HR Scorer Enhancement Research.txt
-resumebuilder/Resume Builder Plugin Industry Research.txt
-resumebuilder/cloud/
-resumebuilder/Dockerfile
-resumebuilder/docker-compose.yml
-resumebuilder/fly.toml
-resumebuilder/.dockerignore
-resumebuilder/requirements-cloud.txt
-resumebuilder/*.db
-resumebuilder/Biweekly Survey Questions*.docx
-resumebuilder/HeallyConnect_Survey*.docx
-resumebuilder/JANANTHAN*
-resumebuilder/yale_transcript.txt
+_jobreforger/~$*.docx
+_jobreforger/*.log
+_jobreforger/.temp_data.json
+_jobreforger/_temp_data.json
+_jobreforger/test.json
+_jobreforger/test_resume.docx
+_jobreforger/create_docs.py
+_jobreforger/generate_docs_*.py
+_jobreforger/generate_kymera_docs.py
+_jobreforger/.gemini/
+_jobreforger/.playwright-mcp/
+_jobreforger/Deepresearch.md
+_jobreforger/DEEP_RESEARCH_PROMPT.md
+_jobreforger/MARKETING_PLAN.md
+_jobreforger/SAAS_PLAN.md
+_jobreforger/IMPLEMENTATION_PLAN.md
+_jobreforger/ATS & HR Scorer Enhancement Research.txt
+_jobreforger/Resume Builder Plugin Industry Research.txt
+_jobreforger/cloud/
+_jobreforger/Dockerfile
+_jobreforger/docker-compose.yml
+_jobreforger/fly.toml
+_jobreforger/.dockerignore
+_jobreforger/requirements-cloud.txt
+_jobreforger/*.db
+_jobreforger/Biweekly Survey Questions*.docx
+_jobreforger/HeallyConnect_Survey*.docx
+_jobreforger/JANANTHAN*
+_jobreforger/yale_transcript.txt
 
 # ========================
 # Standard ignores

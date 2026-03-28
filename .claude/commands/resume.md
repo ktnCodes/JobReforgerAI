@@ -39,10 +39,10 @@ curl -s http://localhost:8100/health
 - If server NOT running: Start it in background:
 ```
 Use Task tool (subagent_type: "Bash", run_in_background: true, name: "scorer-server"):
-cd resumebuilder && python scorer_server.py --port 8100
+cd _jobreforger && python scorer_server.py --port 8100
 ```
 Then retry `/health` up to 15 seconds (models now lazy-load on first request, server starts in ~5s). Once healthy, proceed.
-- Fallback: If server can't start after 20s, fall back to CLI pattern (`cd resumebuilder && python ats_scorer.py --score ... --json`).
+- Fallback: If server can't start after 20s, fall back to CLI pattern (`cd _jobreforger && python ats_scorer.py --score ... --json`).
 
 NOTE: v2.1 Performance Improvements Applied:
 - SBERT model lazy-loads on first scoring call (not at import), reducing server startup from 45-90s to ~5s
@@ -62,10 +62,10 @@ Action A — Find best matching resume:
 - Use `Glob` to find all `tailored-resumes/**/*Resume*.docx` files
 - From the folder names (format: `{Company} - {JobTitle}`), identify the most semantically similar role to the new JD (same domain, similar responsibilities, overlapping keywords)
 - If a match is found (PREFERRED): Read the `.docx` using Python via Bash: `python -c "from docx import Document; [print(p.text) for p in Document('path').paragraphs]"`
-- If no match found: Fall back to the master resume (read `resumebuilder/config.json` for `master_resume_path`, or glob for `base-resume/*MASTER*RESUME*.md`)
+- If no match found: Fall back to the master resume (read `_jobreforger/config.json` for `master_resume_path`, or glob for `base-resume/*MASTER*RESUME*.md`)
 
 Action B — Read master resume:
-- Read the master resume (path from `resumebuilder/config.json` → `master_resume_path`) for canonical job titles, dates, company names, education, certifications, publications, and memberships (these NEVER change)
+- Read the master resume (path from `_jobreforger/config.json` → `master_resume_path`) for canonical job titles, dates, company names, education, certifications, publications, and memberships (these NEVER change)
 
 Action C — Setup output + initialize orchestration state:
 - Extract company name and job title from JD
@@ -73,7 +73,7 @@ Action C — Setup output + initialize orchestration state:
 - Save JD as `job_description.txt` in the output folder
 - Initialize shared state via Bash:
 ```
-cd resumebuilder && python -c "
+cd _jobreforger && python -c "
 from orchestration_state import init_state
 init_state('../tailored-resumes/{folder}', '{Company}', '{JobTitle}', '../tailored-resumes/{folder}/job_description.txt', '{base_template}')
 print('State initialized')
@@ -93,7 +93,7 @@ Base scores are only needed for the final comparison report, NOT for writing the
 Background Agent A — Combined Base Score (ATS + HR) → writes to state.json:
 ```
 Use Task tool (subagent_type: "Bash", run_in_background: true, name: "base-scorer"):
-cd resumebuilder && python -c "
+cd _jobreforger && python -c "
 from orchestration_state import write_score_results, set_phase, log_error
 import subprocess, json
 set_phase('../tailored-resumes/{folder}', 'scoring_base')
@@ -111,13 +111,13 @@ except Exception as e:
     print(f'Error: {e}')
 "
 ```
-Fallback (if server not running): Use 2 separate Bash agents with `cd resumebuilder && python ats_scorer.py --score ... --json` and `cd resumebuilder && python hr_scorer.py --score ... --json`, piping output through `write_score_results('../tailored-resumes/{folder}', 'base_ats'|'base_hr', result)`.
+Fallback (if server not running): Use 2 separate Bash agents with `cd _jobreforger && python ats_scorer.py --score ... --json` and `cd _jobreforger && python hr_scorer.py --score ... --json`, piping output through `write_score_results('../tailored-resumes/{folder}', 'base_ats'|'base_hr', result)`.
 
 MAIN AGENT — Generate the tailored resume using the Scoring-Aware Writing Rules (Steps 0-2 below).
 
 Save as `resume.md` in the output folder when done, then update state:
 ```
-cd resumebuilder && python -c "
+cd _jobreforger && python -c "
 from orchestration_state import update_state, set_phase
 update_state('../tailored-resumes/{folder}', 'tailored_resume_path', '../tailored-resumes/{folder}/resume.md')
 set_phase('../tailored-resumes/{folder}', 'writing')
@@ -136,7 +136,7 @@ Once `resume.md` is saved, launch 3 agents in a single parallel tool call:
 Background Agent C — Combined Tailored Score (ATS + HR + LLM) → writes to state.json:
 ```
 Use Task tool (subagent_type: "Bash", run_in_background: true, name: "tailored-scorer"):
-cd resumebuilder && python -c "
+cd _jobreforger && python -c "
 from orchestration_state import write_score_results, set_phase, log_error
 import subprocess, json
 set_phase('../tailored-resumes/{folder}', 'scoring_tailored')
@@ -193,7 +193,7 @@ Email: {user_email from config.json}"
 
 1. Collect all three scores from state.json (single read replaces polling multiple agent outputs):
 ```
-cd resumebuilder && python -c "
+cd _jobreforger && python -c "
 from orchestration_state import read_state
 import json
 state = read_state('../tailored-resumes/{folder}')
@@ -259,7 +259,7 @@ IF ATS >= 75% AND HR >= 70%:
 
 Re-score after each iteration using all 3 scorers and write to state.json:
 ```
-cd resumebuilder && python -c "
+cd _jobreforger && python -c "
 from orchestration_state import write_score_results, update_state, read_state
 import subprocess, json
 result = subprocess.run(
@@ -307,13 +307,13 @@ Anti-patterns to avoid during iteration:
 
 Once scores pass AND cover letter is ready, set phase to finalizing and launch 3 agents in a single parallel tool call:
 ```
-cd resumebuilder && python -c "from orchestration_state import set_phase; set_phase('../tailored-resumes/{folder}', 'finalizing')"
+cd _jobreforger && python -c "from orchestration_state import set_phase; set_phase('../tailored-resumes/{folder}', 'finalizing')"
 ```
 
 Background Agent F — Resume DOCX (from markdown) → updates state.json:
 ```
 Use Task tool (subagent_type: "Bash", run_in_background: true, name: "resume-docx-creator"):
-cd resumebuilder && python -c "
+cd _jobreforger && python -c "
 from docx_generator import create_resume_from_md
 from orchestration_state import update_state, log_error
 try:
@@ -329,7 +329,7 @@ except Exception as e:
 Background Agent G — Cover Letter DOCX (ALWAYS use create_ats_cover_letter directly) → updates state.json:
 ```
 Use Task tool (subagent_type: "Bash", run_in_background: true, name: "cover-letter-docx-creator"):
-cd resumebuilder && python -c "
+cd _jobreforger && python -c "
 from docx_generator import create_ats_cover_letter
 from orchestration_state import update_state, log_error
 try:
@@ -362,7 +362,7 @@ except Exception as e:
 Background Agent H — Update Tracker → updates state.json:
 ```
 Use Task tool (subagent_type: "Bash", run_in_background: true, name: "tracker-updater"):
-cd resumebuilder && python -c "
+cd _jobreforger && python -c "
 from tracker_utils import add_application
 from orchestration_state import update_state, log_error
 try:
@@ -391,7 +391,7 @@ except Exception as e:
 
 1. Read final state from state.json (single source of truth for all agent results):
 ```
-cd resumebuilder && python -c "
+cd _jobreforger && python -c "
 from orchestration_state import read_state, set_phase, cleanup_state
 import json
 state = read_state('../tailored-resumes/{folder}')
@@ -411,7 +411,7 @@ cp "tailored-resumes/{folder}/{Name}_Cover_Letter_{Company}.docx" "cover-letters
 ```
 4. Delete intermediate files: `resume.md`, `cover_letter.md`, and `state.json` (AFTER verifying DOCX paths exist in state)
 ```
-cd resumebuilder && python -c "
+cd _jobreforger && python -c "
 from orchestration_state import cleanup_state
 import os
 for f in ['../tailored-resumes/{folder}/resume.md', '../tailored-resumes/{folder}/cover_letter.md']:
@@ -492,8 +492,8 @@ SWARM AGENTS USED: {count} | ITERATIONS: {count}
 
 5. Offer to open web comparison reports:
 ```bash
-cd resumebuilder && python ats_scorer.py --web --base "{base_template}" --tailored "../tailored-resumes/{folder}/resume.md" --jd "../tailored-resumes/{folder}/job_description.txt"
-cd resumebuilder && python hr_scorer.py --score "../tailored-resumes/{folder}/{Name}_Resume_{Company}.docx" "../tailored-resumes/{folder}/job_description.txt" --web
+cd _jobreforger && python ats_scorer.py --web --base "{base_template}" --tailored "../tailored-resumes/{folder}/resume.md" --jd "../tailored-resumes/{folder}/job_description.txt"
+cd _jobreforger && python hr_scorer.py --score "../tailored-resumes/{folder}/{Name}_Resume_{Company}.docx" "../tailored-resumes/{folder}/job_description.txt" --web
 ```
 
 ---

@@ -18,7 +18,7 @@ except ImportError:
     print("Warning: pandas or openpyxl not installed. Excel tracking disabled.")
 
 
-# Default tracker path (relative to project root, one level up from resumebuilder/)
+# Default tracker path (relative to project root, one level up from _jobreforger/)
 TRACKER_PATH = Path(__file__).parent.parent / "job-trackcsv" / "Job_Application_Tracker.xlsx"
 APPLICATIONS_DIR = Path(__file__).parent.parent / "tailored-resumes"
 

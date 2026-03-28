@@ -22,10 +22,10 @@ curl -s http://localhost:8100/health
 - **If server NOT running**: Start it in background:
 ```
 Use Task tool (subagent_type: "Bash", run_in_background: true, name: "scorer-server"):
-cd resumebuilder && python scorer_server.py --port 8100
+cd _jobreforger && python scorer_server.py --port 8100
 ```
 Then retry `/health` up to 45 seconds (models take ~30s to load). Once healthy, proceed.
-- **Fallback**: If server can't start after 45s, fall back to CLI pattern (`cd resumebuilder && python ats_scorer.py --score ... --json`).
+- **Fallback**: If server can't start after 45s, fall back to CLI pattern (`cd _jobreforger && python ats_scorer.py --score ... --json`).
 
 ---
 
@@ -37,10 +37,10 @@ Execute these **3 actions in a single parallel tool call** (no agents — use Re
 - Use `Glob` to find all `tailored-resumes/**/*Resume*.docx` files
 - From folder names (`{Company} - {JobTitle}`), identify the most semantically similar role
 - **If match found (PREFERRED)**: Read `.docx` via Bash: `python -c "from docx import Document; [print(p.text) for p in Document('path').paragraphs]"`
-- **If no match**: Fall back to the master resume (read `resumebuilder/config.json` for `master_resume_path`, or glob for `base-resume/*MASTER*RESUME*.md`)
+- **If no match**: Fall back to the master resume (read `_jobreforger/config.json` for `master_resume_path`, or glob for `base-resume/*MASTER*RESUME*.md`)
 
 **Action B — Read master resume:**
-- Read the master resume (path from `resumebuilder/config.json` → `master_resume_path`) for canonical job titles, dates, company names, education, certifications, publications, memberships (NEVER change these)
+- Read the master resume (path from `_jobreforger/config.json` → `master_resume_path`) for canonical job titles, dates, company names, education, certifications, publications, memberships (NEVER change these)
 
 **Action C — Setup output:**
 - Extract company name and job title from JD
@@ -60,7 +60,7 @@ Base scores are only needed for the final comparison report.
 Use Task tool (subagent_type: "Bash", run_in_background: true, name: "base-scorer"):
 curl -s -X POST http://localhost:8100/score/both -H "Content-Type: application/json" -d "{\"resume_path\": \"{base_template_path}\", \"jd_path\": \"../tailored-resumes/{folder}/job_description.txt\"}"
 ```
-**Fallback** (if server not running): Use 2 separate Bash agents with `cd resumebuilder && python ats_scorer.py --score ... --json` and `cd resumebuilder && python hr_scorer.py --score ... --json`.
+**Fallback** (if server not running): Use 2 separate Bash agents with `cd _jobreforger && python ats_scorer.py --score ... --json` and `cd _jobreforger && python hr_scorer.py --score ... --json`.
 
 **MAIN AGENT — Generate the tailored resume immediately (see RESUME WRITING RULES below).**
 
@@ -114,13 +114,13 @@ Once scores pass, launch **2 agents in a single parallel tool call**:
 **Background Agent E — Resume DOCX (from markdown):**
 ```
 Use Task tool (subagent_type: "Bash", run_in_background: true, name: "resume-docx-creator"):
-cd resumebuilder && python -c "from docx_generator import create_resume_from_md; create_resume_from_md('../tailored-resumes/{folder}/resume.md', '../tailored-resumes/{folder}/{Name}_Resume_{Company}.docx'); print('Resume DOCX created successfully')"
+cd _jobreforger && python -c "from docx_generator import create_resume_from_md; create_resume_from_md('../tailored-resumes/{folder}/resume.md', '../tailored-resumes/{folder}/{Name}_Resume_{Company}.docx'); print('Resume DOCX created successfully')"
 ```
 
 **Background Agent F — Update Tracker:**
 ```
 Use Task tool (subagent_type: "Bash", run_in_background: true, name: "tracker-updater"):
-cd resumebuilder && python -c "
+cd _jobreforger && python -c "
 from tracker_utils import add_application
 add_application(
     company='{Company}',
@@ -188,8 +188,8 @@ SWARM AGENTS USED: {count} | ITERATIONS: {count}
 
 5. **Offer** web reports:
 ```bash
-cd resumebuilder && python ats_scorer.py --web --base "{base_template}" --tailored "../tailored-resumes/{folder}/resume.md" --jd "../tailored-resumes/{folder}/job_description.txt"
-cd resumebuilder && python hr_scorer.py --score "../tailored-resumes/{folder}/{Name}_Resume_{Company}.docx" "../tailored-resumes/{folder}/job_description.txt" --web
+cd _jobreforger && python ats_scorer.py --web --base "{base_template}" --tailored "../tailored-resumes/{folder}/resume.md" --jd "../tailored-resumes/{folder}/job_description.txt"
+cd _jobreforger && python hr_scorer.py --score "../tailored-resumes/{folder}/{Name}_Resume_{Company}.docx" "../tailored-resumes/{folder}/job_description.txt" --web
 ```
 
 ---

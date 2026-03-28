@@ -4,7 +4,7 @@
 
 ```
 JobReforgerAI/
-├── resumebuilder/          # Tool source code (Python, scoring engines, data)
+├── _jobreforger/          # Tool source code (Python, scoring engines, data)
 ├── base-resume/            # Your master resume (personal, gitignored)
 ├── tailored-resumes/       # Generated tailored resumes + JDs (personal, gitignored)
 ├── cover-letters/          # Generated cover letters (personal, gitignored)
@@ -14,9 +14,9 @@ JobReforgerAI/
 
 ## How It Works
 
-All Python source code lives in `resumebuilder/`. Slash commands are in `.claude/commands/` at the root level so they can be invoked from this directory.
+All Python source code lives in `_jobreforger/`. Slash commands are in `.claude/commands/` at the root level so they can be invoked from this directory.
 
-Python scripts are invoked with `cd resumebuilder && python ...` so imports resolve correctly. File paths in Python code use `../` to reference root-level folders (e.g., `../tailored-resumes/`, `../base-resume/`).
+Python scripts are invoked with `cd _jobreforger && python ...` so imports resolve correctly. File paths in Python code use `../` to reference root-level folders (e.g., `../tailored-resumes/`, `../base-resume/`).
 
 ## Quick Start
 
@@ -32,8 +32,8 @@ Python scripts are invoked with `cd resumebuilder && python ...` so imports reso
 
 ## Configuration
 
-- `resumebuilder/config.json` — User name, email, phone, resume path, output directory
-- `resumebuilder/config.example.json` — Template for new users
-- `resumebuilder/.env` — API keys (optional, for LLM-augmented scoring)
+- `_jobreforger/config.json` — User name, email, phone, resume path, output directory
+- `_jobreforger/config.example.json` — Template for new users
+- `_jobreforger/.env` — API keys (optional, for LLM-augmented scoring)
 
-See `resumebuilder/CLAUDE.md` for full project documentation including scoring system details, architecture, and development guide.
+See `_jobreforger/CLAUDE.md` for full project documentation including scoring system details, architecture, and development guide.

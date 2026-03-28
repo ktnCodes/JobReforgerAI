@@ -11,11 +11,11 @@ You are helping the user discover relevant job opportunities scored against thei
 
 ### Step 1: Read Master Resume
 
-Read `resumebuilder/config.json` to get `master_resume_path`. Extract the full resume text:
+Read `_jobreforger/config.json` to get `master_resume_path`. Extract the full resume text:
 - `.docx` files: use the `extract_text` MCP tool
 - `.pdf`, `.md`, `.txt` files: read directly
 
-If `resumebuilder/config.json` is missing or `master_resume_path` is not set, ask the user to paste their resume text directly.
+If `_jobreforger/config.json` is missing or `master_resume_path` is not set, ask the user to paste their resume text directly.
 
 ### Step 2: Parse the Search Query
 

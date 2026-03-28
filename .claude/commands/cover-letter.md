@@ -19,7 +19,7 @@ You are an expert career coach and professional writer. The user has provided a 
    - List all subfolders in `tailored-resumes/`
    - Compare folder job titles against the NEW job description's title and requirements
    - **If a similar resume is found**: Read that resume to understand the applicant's tailored background for this type of role
-   - **If NO similar resume is found**: Read the master resume (path from `resumebuilder/config.json` → `master_resume_path`, or glob for `base-resume/*MASTER*RESUME*.md`) to understand the applicant's background
+   - **If NO similar resume is found**: Read the master resume (path from `_jobreforger/config.json` → `master_resume_path`, or glob for `base-resume/*MASTER*RESUME*.md`) to understand the applicant's background
    - Always also read the master resume for canonical details
 
 3. **Create output folder** at `tailored-resumes/{CompanyName} - {JobTitle}/` (if not exists)

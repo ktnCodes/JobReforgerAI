@@ -22,7 +22,7 @@ curl -s http://localhost:8100/health
 - **If NOT running**: Start it:
 ```
 Use Task tool (subagent_type: "Bash", run_in_background: true, name: "scorer-server"):
-cd resumebuilder && python scorer_server.py --port 8100
+cd _jobreforger && python scorer_server.py --port 8100
 ```
 Wait up to 45 seconds for `/health` to respond. If it fails, warn the user.
 
@@ -30,9 +30,9 @@ Wait up to 45 seconds for `/health` to respond. If it fails, warn the user.
 
 ## STEP 2: DISCOVER JDs
 
-Scan the `resumebuilder/batch_jds/` folder for `.txt` files:
+Scan the `_jobreforger/batch_jds/` folder for `.txt` files:
 ```
-Use Glob: resumebuilder/batch_jds/*.txt
+Use Glob: _jobreforger/batch_jds/*.txt
 ```
 
 Each file should be named: `{Company} - {Job Title}.txt`
@@ -41,7 +41,7 @@ Parse the filename to extract:
 - **Company**: Everything before ` - `
 - **Job Title**: Everything after ` - ` (without `.txt`)
 
-If no files found, tell the user to add JD text files to `resumebuilder/batch_jds/` and explain the naming format.
+If no files found, tell the user to add JD text files to `_jobreforger/batch_jds/` and explain the naming format.
 
 Display a numbered list of all JDs found and confirm with the user before proceeding.
 
@@ -51,7 +51,7 @@ Display a numbered list of all JDs found and confirm with the user before procee
 
 Read the master resume once (it's shared across all jobs):
 ```
-Read the master resume file (check resumebuilder/config.json for master_resume_path, or glob for base-resume/*MASTER*RESUME*.md)
+Read the master resume file (check _jobreforger/config.json for master_resume_path, or glob for base-resume/*MASTER*RESUME*.md)
 ```
 
 Also find existing application resumes to use as best-match templates:
@@ -199,18 +199,18 @@ Save as cover_letter.md in the output folder.
 
 ### 5. Create DOCX Files
 ```bash
-cd resumebuilder && python -c "from docx_generator import create_resume_from_md; create_resume_from_md('../tailored-resumes/{Company} - {Job Title}/resume.md', '../tailored-resumes/{Company} - {Job Title}/{Name}_Resume_{CompanyShort}.docx'); print('Resume DOCX done')"
+cd _jobreforger && python -c "from docx_generator import create_resume_from_md; create_resume_from_md('../tailored-resumes/{Company} - {Job Title}/resume.md', '../tailored-resumes/{Company} - {Job Title}/{Name}_Resume_{CompanyShort}.docx'); print('Resume DOCX done')"
 ```
 
 ```bash
-cd resumebuilder && python -c "from docx_generator import create_cover_letter_from_md; create_cover_letter_from_md('../tailored-resumes/{Company} - {Job Title}/cover_letter.md', '../tailored-resumes/{Company} - {Job Title}/{Name}_Cover_Letter_{CompanyShort}.docx', '{Job Title}'); print('Cover letter DOCX done')"
+cd _jobreforger && python -c "from docx_generator import create_cover_letter_from_md; create_cover_letter_from_md('../tailored-resumes/{Company} - {Job Title}/cover_letter.md', '../tailored-resumes/{Company} - {Job Title}/{Name}_Cover_Letter_{CompanyShort}.docx', '{Job Title}'); print('Cover letter DOCX done')"
 ```
 
 {CompanyShort} = Company name with spaces replaced by underscores, no special characters.
 
 ### 6. Update Tracker
 ```bash
-cd resumebuilder && python -c "from tracker_utils import add_application; add_application(company='{Company}', job_title='{Job Title}', resume_file='{Name}_Resume_{CompanyShort}.docx', cover_letter_file='{Name}_Cover_Letter_{CompanyShort}.docx', jd_file='job_description.txt', ats_score={ats_score}, hr_score={hr_score}, status='Applied'); print('Tracker updated')"
+cd _jobreforger && python -c "from tracker_utils import add_application; add_application(company='{Company}', job_title='{Job Title}', resume_file='{Name}_Resume_{CompanyShort}.docx', cover_letter_file='{Name}_Cover_Letter_{CompanyShort}.docx', jd_file='job_description.txt', ats_score={ats_score}, hr_score={hr_score}, status='Applied'); print('Tracker updated')"
 ```
 
 ### 7. Cleanup
@@ -272,4 +272,4 @@ After the report, offer to:
 - Each agent is fully independent — if one fails, others continue
 - DOCX creation uses markdown-to-DOCX pipeline (no bash quoting issues)
 - Master resume is passed directly to each agent (no file read race conditions)
-- The resumebuilder/batch_jds/ folder is NOT cleared after processing — user manages it manually
+- The _jobreforger/batch_jds/ folder is NOT cleared after processing — user manages it manually

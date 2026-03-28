@@ -48,7 +48,7 @@ Ask the user which setup they prefer:
 ### Step 3A: Quick Setup (Cloud)
 
 ```bash
-pip install -r resumebuilder/requirements-plugin.txt
+pip install -r _jobreforger/requirements-plugin.txt
 ```
 
 If `pip` is not found, try `pip3` or `python -m pip`. Use `${CLAUDE_PLUGIN_ROOT}/requirements-plugin.txt` if needed.
@@ -58,7 +58,7 @@ This installs `fastmcp` (MCP protocol) and `anthropic` (for LLM features). All A
 ### Step 3B: Full Local Setup
 
 ```bash
-pip install -r resumebuilder/requirements.txt
+pip install -r _jobreforger/requirements.txt
 ```
 
 Use `${CLAUDE_PLUGIN_ROOT}/requirements.txt` if needed. This takes 1-3 minutes (downloads sentence-transformers model ~80MB).
@@ -71,9 +71,9 @@ python -c "import nltk; nltk.download('wordnet'); nltk.download('punkt_tab')"
 
 ### Step 4: Set Up Configuration
 
-Check if the user has a `resumebuilder/config.json` in their project. If not, create one from `resumebuilder/config.example.json`:
+Check if the user has a `_jobreforger/config.json` in their project. If not, create one from `_jobreforger/config.example.json`:
 
-1. Read `resumebuilder/config.example.json` from the plugin directory
+1. Read `_jobreforger/config.example.json` from the plugin directory
 2. Ask the user for their details:
    - Full name
    - Credentials (e.g., M.D., MBA, CPA — or leave blank)
@@ -81,7 +81,7 @@ Check if the user has a `resumebuilder/config.json` in their project. If not, cr
    - Phone
    - LinkedIn URL
    - Path to their master resume file (DOCX, PDF, or Markdown with their full work history)
-3. Create `resumebuilder/config.json` with their answers
+3. Create `_jobreforger/config.json` with their answers
 
 ### Step 5: (Optional) LLM Features Setup
 
@@ -103,7 +103,7 @@ python -c "import fastmcp; print('Plugin ready! Cloud scoring active.')"
 
 For Full Setup, run:
 ```bash
-cd resumebuilder && python -c "import ats_scorer; import hr_scorer; print('Full scoring engine ready!')"
+cd _jobreforger && python -c "import ats_scorer; import hr_scorer; print('Full scoring engine ready!')"
 ```
 
 If successful, tell the user:

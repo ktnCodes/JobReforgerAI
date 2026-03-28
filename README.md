@@ -59,16 +59,16 @@ Everything runs **locally on your machine**. No cloud, no subscriptions, no API 
 git clone https://github.com/ktnCodes/JobReforgerAI.git
 cd JobReforgerAI
 
-pip install -r resumebuilder/requirements.txt
+pip install -r _jobreforger/requirements.txt
 
 # Download NLTK data (one-time)
 python -c "import nltk; nltk.download('wordnet'); nltk.download('punkt_tab')"
 
-cp resumebuilder/.env.example resumebuilder/.env
-cp resumebuilder/config.example.json resumebuilder/config.json
+cp _jobreforger/.env.example _jobreforger/.env
+cp _jobreforger/config.example.json _jobreforger/config.json
 ```
 
-Edit `resumebuilder/config.json` with your name, email, phone, and LinkedIn. Set `master_resume_path` to your resume file (e.g., `../base-resume/YOUR_MASTER_RESUME.md`).
+Edit `_jobreforger/config.json` with your name, email, phone, and LinkedIn. Set `master_resume_path` to your resume file (e.g., `../base-resume/YOUR_MASTER_RESUME.md`).
 
 Edit `.env` — the API key is only needed if you plan to use the legacy `resume_builder.py` CLI. The modern slash commands work through Claude Code's subscription with no API key:
 
@@ -86,7 +86,7 @@ Create a `.mcp.json` file in the project root (excluded from git — contains yo
     "ai-resume-tuner": {
       "command": "python",
       "args": ["mcp_scorer.py"],
-      "cwd": "/path/to/JobReforgerAI/resumebuilder"
+      "cwd": "/path/to/JobReforgerAI/_jobreforger"
     }
   }
 }
@@ -305,7 +305,7 @@ JobReforgerAI/
 ├── cover-letters/                  # Generated cover letters (gitignored)
 ├── job-trackcsv/                   # Job application tracker (gitignored)
 ├── CLAUDE.md                       # Root workspace context
-├── resumebuilder/                  # Tool source code
+├── _jobreforger/                  # Tool source code
 │   ├── data/                       # Scoring reference databases
 │   │   ├── keywords_*.json         # Domain keyword databases (6 domains)
 │   │   ├── skill_taxonomy.json     # Skill decay constants
