@@ -1,0 +1,90 @@
+# ========================
+# Machine-specific config
+# ========================
+.mcp.json
+
+# ========================
+# Personal data (personal branch only)
+# ========================
+base-resume/
+tailored-resumes/
+cover-letters/*.docx
+cover-letters/*.pdf
+job-trackcsv/
+CONTEXT.md
+resumebuilder-history.bundle
+
+# ========================
+# Resumebuilder sensitive files
+# ========================
+resumebuilder/.env
+resumebuilder/config.json
+resumebuilder/*MASTER*RESUME*
+resumebuilder/.mcp.json
+resumebuilder/applications/
+resumebuilder/embed_cache/
+resumebuilder/batch_jds/
+resumebuilder/score_history.json
+resumebuilder/__pycache__/
+resumebuilder/.mypy_cache/
+resumebuilder/.pytest_cache/
+resumebuilder/.ruff_cache/
+resumebuilder/tests/
+resumebuilder/.claude/memory/
+resumebuilder/.claude/settings.local.json
+resumebuilder/.claude-plugin/
+
+# ========================
+# Resumebuilder internal ignores
+# ========================
+resumebuilder/~$*.docx
+resumebuilder/*.log
+resumebuilder/.temp_data.json
+resumebuilder/_temp_data.json
+resumebuilder/test.json
+resumebuilder/test_resume.docx
+resumebuilder/create_docs.py
+resumebuilder/generate_docs_*.py
+resumebuilder/generate_kymera_docs.py
+resumebuilder/.gemini/
+resumebuilder/.playwright-mcp/
+resumebuilder/Deepresearch.md
+resumebuilder/DEEP_RESEARCH_PROMPT.md
+resumebuilder/MARKETING_PLAN.md
+resumebuilder/SAAS_PLAN.md
+resumebuilder/IMPLEMENTATION_PLAN.md
+resumebuilder/ATS & HR Scorer Enhancement Research.txt
+resumebuilder/Resume Builder Plugin Industry Research.txt
+resumebuilder/cloud/
+resumebuilder/Dockerfile
+resumebuilder/docker-compose.yml
+resumebuilder/fly.toml
+resumebuilder/.dockerignore
+resumebuilder/requirements-cloud.txt
+resumebuilder/*.db
+resumebuilder/Biweekly Survey Questions*.docx
+resumebuilder/HeallyConnect_Survey*.docx
+resumebuilder/JANANTHAN*
+resumebuilder/yale_transcript.txt
+
+# ========================
+# Standard ignores
+# ========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+*.egg
+.DS_Store
+Thumbs.db
+Desktop.ini
+~$*.docx
+*.log
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
