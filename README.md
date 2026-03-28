@@ -3,7 +3,8 @@
 > Forge tailored resumes with AI-powered ATS + HR dual scoring — fully local, no subscriptions, no API keys required.
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![Claude Code](https://img.shields.io/badge/Claude%20Code-Plugin-blueviolet)](https://docs.anthropic.com/en/docs/claude-code)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-Commands-blueviolet)](https://docs.anthropic.com/en/docs/claude-code)
+[![Claude Cowork](https://img.shields.io/badge/Claude%20Cowork-Skill-blue)](https://claude.com)
 
 ---
 
@@ -30,6 +31,7 @@ Everything runs **locally on your machine**. No cloud services, no subscriptions
 - **Power applicants** sending out many applications and want consistent quality with tracked scores
 - **Developers and tinkerers** who prefer open-source tools they can inspect and modify
 - **Claude Code users** who want a real-world example of slash commands, MCP tools, and multi-agent orchestration
+- **Claude Cowork users** who prefer a visual desktop experience with natural language interaction
 
 | Feature | Jobscan | Rezi | Teal | **JobReforgerAI** |
 |---------|---------|------|------|--------------------|
@@ -48,10 +50,19 @@ Everything runs **locally on your machine**. No cloud services, no subscriptions
 
 ## How to Use
 
+JobReforgerAI works with two Claude interfaces. Pick whichever you prefer — both share the same Python backend and produce identical results.
+
+| | Claude Code (CLI) | Claude Cowork (Desktop App) |
+|---|---|---|
+| **Interface** | Terminal / command line | Visual desktop app |
+| **How you interact** | Slash commands (`/resume`, `/find-jobs`) | Natural language ("Help me apply to this job") |
+| **Setup** | Clone repo, run `/setup` | Clone repo, install `.skill` file |
+| **Best for** | Developers, power users | Everyone, visual workflows |
+
 ### Prerequisites
 
 - Python 3.10+
-- [Claude Code](https://docs.anthropic.com/en/docs/claude-code)
+- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) **or** [Claude Desktop](https://claude.com) (Cowork mode)
 
 ### Installation
 
@@ -107,6 +118,12 @@ Create a `.mcp.json` file in the project root (excluded from git — contains yo
 }
 ```
 
+---
+
+## Option A: Claude Code (CLI)
+
+Slash commands are a **Claude Code-only feature** — they do not work in Claude Cowork or other Claude interfaces. Run these from the project root directory in your terminal.
+
 ### Basic Usage
 
 ```
@@ -121,11 +138,7 @@ Or find jobs first, then tailor:
 /resume [paste a JD from the results]
 ```
 
----
-
-## Slash Commands
-
-All commands run from the project root in Claude Code.
+### All Slash Commands
 
 | Command | What It Does |
 |---------|-------------|
@@ -136,20 +149,62 @@ All commands run from the project root in Claude Code.
 | `/find-jobs [title] [location]` | Search live job boards, score each result against your resume |
 | `/batch-resume` | Process multiple JDs in parallel |
 | `/writing-coach [file]` | Audit and improve resume bullets using 10 writing rules |
+| `/job-fit [JD]` | Quick GO/NO-GO fit check before investing time in tailoring |
+
+---
+
+## Option B: Claude Cowork (Desktop App)
+
+Claude Cowork uses **skills** instead of slash commands. The `jobreforger` skill provides all the same workflows through natural language.
+
+### Install the Skill
+
+**Option 1 — One-click install:** Open the `jobreforger.skill` file from the project root in Cowork. Click "Copy to your skills" to install.
+
+**Option 2 — Shell script:**
+```bash
+cd JobReforgerAI
+bash install-cowork-skill.sh
+```
+
+**Option 3 — Manual:** Copy the `.claude/skills/jobreforger/` folder to your `~/.claude/skills/` directory.
+
+### Usage
+
+Open Cowork, select the JobReforgerAI folder, and describe what you need in natural language. The skill triggers automatically:
+
+| What you say | What happens |
+|---|---|
+| "Help me apply to this job: [paste JD]" | Full resume + cover letter package |
+| "Tailor my resume for this role: [paste JD]" | Resume only |
+| "Write a cover letter for this position: [paste JD]" | Cover letter only |
+| "Find data scientist jobs in NYC" | Job search and scoring |
+| "Is this job a good fit? [paste JD]" | Quick GO/NO-GO pre-screen |
+| "Review my resume writing and make it stronger" | Writing coach audit |
+| "Process all the JDs in my batch folder" | Batch processing |
+| "Set up JobReforger" | One-time configuration |
+
+### If the Skill Is Not Installed
+
+You can also ask Claude to read the skill file directly:
+
+> "Read `.claude/skills/jobreforger/SKILL.md` and follow its instructions to tailor my resume for this job: [paste JD]"
 
 ---
 
 ## Workflow
 
 ```
-1. /setup                    One-time setup (install deps, create config)
+1. Setup                      One-time setup (install deps, create config)
 2. Create master resume       YOUR_MASTER_RESUME.md (or .docx / .pdf)
-3. /find-jobs [title] [loc]  Optional — discover and score matching jobs
-4. /resume [JD]              Paste a JD — get a full application package
-5. /writing-coach            Optional — audit and improve writing quality
+3. Find jobs (optional)       Discover and score matching jobs
+4. Apply to a job             Paste a JD — get a full application package
+5. Writing coach (optional)   Audit and improve writing quality
 ```
 
-Each `/resume` run executes in parallel phases:
+In Claude Code, these correspond to `/setup`, `/find-jobs`, `/resume`, `/writing-coach`. In Cowork, just describe what you need in natural language.
+
+Each resume run executes in parallel phases:
 
 - **Phase 1:** Research (reads master resume, finds best prior match, sets up output folder)
 - **Phase 2:** Background base scoring + resume writing (non-blocking)
@@ -213,12 +268,10 @@ Simulates how a human recruiter evaluates a resume in a 7-second scan.
 
 ## Job Discovery
 
-The `/find-jobs` command and `discover_jobs` MCP tool search live job boards ranked by fit with your resume — no API keys required.
+Search live job boards ranked by fit with your resume — no API keys required.
 
-```
-/find-jobs Embedded Software Engineer Austin TX
-/find-jobs Data Scientist remote
-```
+In Claude Code: `/find-jobs Embedded Software Engineer Austin TX`
+In Cowork: "Find me Embedded Software Engineer jobs in Austin TX"
 
 **Sources (no API keys needed):**
 - **Indeed, LinkedIn, ZipRecruiter, Glassdoor** — via `python-jobspy` (scrapes without keys)
@@ -305,7 +358,7 @@ Set `master_resume_path` in `config.json` to point to this file.
 
 ```
 JobReforgerAI/
-├── .claude/commands/               # Slash commands (invoked from root)
+├── .claude/commands/               # Slash commands (Claude Code CLI only)
 │   ├── resume.md                   # Full application workflow
 │   ├── tailor-resume.md            # Resume only
 │   ├── cover-letter.md             # Cover letter only
@@ -313,6 +366,10 @@ JobReforgerAI/
 │   ├── batch-resume.md             # Batch processing
 │   ├── setup.md                    # One-time setup
 │   └── writing-coach.md            # Writing enhancement (10 rules)
+├── .claude/skills/jobreforger/     # Cowork skill (Claude Desktop only)
+│   └── SKILL.md                    # Unified skill with workflow routing
+├── jobreforger.skill               # Installable skill package for Cowork
+├── install-cowork-skill.sh         # Shell script to install the skill
 ├── base-resume/                    # Your master resume (gitignored)
 ├── tailored-resumes/               # Generated tailored resumes + JDs (gitignored)
 ├── cover-letters/                  # Generated cover letters (gitignored)
@@ -346,7 +403,7 @@ JobReforgerAI/
 
 | Component | Technology |
 |-----------|------------|
-| AI Agent Framework | [Claude Code](https://docs.anthropic.com/en/docs/claude-code) |
+| AI Agent Framework | [Claude Code](https://docs.anthropic.com/en/docs/claude-code) / [Claude Cowork](https://claude.com) |
 | MCP Server | [FastMCP 3.0](https://gofastmcp.com/) (local-only) |
 | Embeddings | [Sentence Transformers](https://sbert.net/) (all-MiniLM-L6-v2) |
 | NLP | NLTK (lemmatization), TextStat (readability) |
@@ -367,7 +424,7 @@ MIT License — see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
-- Built with [Claude Code](https://docs.anthropic.com/en/docs/claude-code) by [Anthropic](https://www.anthropic.com/)
+- Built with [Claude Code](https://docs.anthropic.com/en/docs/claude-code) and [Claude Cowork](https://claude.com) by [Anthropic](https://www.anthropic.com/)
 - ATS scoring informed by real-world Applicant Tracking System behavior research
 - HR scoring model informed by eye-tracking research on recruiter behavior patterns
 - Domain keyword databases curated from real job descriptions across 6 industries
