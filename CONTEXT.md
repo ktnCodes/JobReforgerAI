@@ -1,50 +1,57 @@
-# Resume Hub Workspace
+# JobReforgerAI Workspace
 
 ## What This Workspace Is
 
-Everything resume and cover letter related. The system works in two layers:
-a strong base resume, then tailored versions for specific job applications.
+AI resume toolkit with ATS + HR dual scoring. Fully local, no subscriptions.
+Supports two interfaces: Claude Code (slash commands) and Claude Cowork (skill).
+
+All source code lives in `_jobreforger/`. Personal files (resumes, cover letters, job tracker) are gitignored.
+
+Repo: https://github.com/ktnCodes/JobReforgerAI
 
 ---
 
 ## Folder Structure
 
 ```
-resume-hub/
-├── base-resume/        # The master resume — always kept up to date
-├── tailored/           # Job-specific resume versions
-└── cover-letters/      # Cover letters per application
+JobReforgerAI/
+├── _jobreforger/       # Python source code (scoring engines, tools, data)
+├── base-resume/        # Your master resume — always kept up to date (gitignored)
+├── tailored-resumes/   # Generated tailored resumes + JDs (gitignored)
+├── cover-letters/      # Generated cover letters (gitignored)
+└── job-tracker/        # Application tracker spreadsheet (gitignored)
 ```
 
 ---
 
 ## Routing Table
 
-| Task                              | Load These                                              | Skip These                    |
-|-----------------------------------|---------------------------------------------------------|-------------------------------|
-| Update the base resume            | `base-resume/resume-base.md`                           | tailored/, cover-letters/     |
-| Tailor resume for a job           | `base-resume/resume-base.md`, job description          | Other tailored resumes        |
-| Write a cover letter              | The tailored resume for this job, job description      | base-resume/, other letters   |
-| Review a tailored resume          | The specific tailored file, job description            | Other files                   |
+| Task                              | Load These                                              | Skip These                     |
+|-----------------------------------|---------------------------------------------------------|--------------------------------|
+| Run the tool (Claude Code)        | `CLAUDE.md`, then use slash commands                   | `_jobreforger/` source files   |
+| Run the tool (Cowork)             | `CLAUDE.md`, install `jobreforger.skill`               | `_jobreforger/` source files   |
+| Update the base resume            | `base-resume/Kevin_Nguyen_master_resume.md`            | tailored-resumes/, cover-letters/ |
+| Tailor a resume manually          | `base-resume/`, job description                        | Other tailored files           |
+| Debug scoring or scoring logic    | `_jobreforger/ats_scorer.py` or `hr_scorer.py`         | -                              |
+| Add a feature or fix a bug        | `_jobreforger/CLAUDE.md`, relevant source file         | Personal output folders        |
+| Review architecture               | `_jobreforger/CLAUDE.md`                               | -                              |
 
 ---
 
-## Workflow: Tailoring a Resume
+## Quick Start (Claude Code)
 
-1. **Job description** — Paste or describe the target role
-2. **Load base** — Read `base-resume/resume-base.md`
-3. **Identify gaps** — What does the JD emphasize that the base resume undersells?
-4. **Tailor** — Reorder, reword, and highlight relevant experience
-5. **Save** — Write to `tailored/resume-[company]-[role].md`
-6. **Cover letter** — Write to `cover-letters/cover-[company]-[role].md`
+```bash
+/setup                              # One-time configuration
+/resume [paste job description]     # Full package: resume + cover letter + DOCX
+/find-jobs [title] [location]       # Search and score matching jobs
+/job-fit [paste JD]                 # Quick GO/NO-GO pre-screen
+```
 
----
+## Quick Start (Cowork)
 
-## Workflow: Updating the Base Resume
-
-1. Load `base-resume/resume-base.md`
-2. Make updates
-3. Save in place — this file is always the current truth
+Install `jobreforger.skill` from the project root, then use natural language:
+- "Help me apply to this job: [paste JD]"
+- "Find embedded software engineer jobs in Austin TX"
 
 ---
 
@@ -54,3 +61,5 @@ resume-hub/
 - Keep to one page unless 10+ years experience
 - Use keywords from job descriptions — ATS systems scan for them
 - Quantify everything possible
+- Authentic content at 75% ATS beats keyword stuffing at 90%
+
